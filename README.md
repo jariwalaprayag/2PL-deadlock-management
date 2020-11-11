@@ -13,7 +13,7 @@ The output is generated as a text file. user can specify filename on line 16.
 
 In order to run the program user must execute following command on command prompt.
 
->python project1.py
+>python project.py
 
 Output format:
 
