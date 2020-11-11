@@ -1,0 +1,198 @@
+
+********************************************************************************************
+timestamp is 1 and instruction executed is b1;
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+
+Lock table
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 2 and instruction executed is r1 (Y);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 3 and instruction executed is r1 (Z);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+DataItem:Z	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 4 and instruction executed is b2;
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+DataItem:Z	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 5 and instruction executed is r2 (Y);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1-2	BlockedOperations:
+DataItem:Z	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 6 and instruction executed is b3;
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+T_ID:3	TimeStamp:6	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1-2	BlockedOperations:
+DataItem:Z	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 7 and instruction executed is r3 (Y);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+T_ID:3	TimeStamp:6	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1-2-3	BlockedOperations:
+DataItem:Z	Lock_Mode:read		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 8 and instruction executed is w1 (Z);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+T_ID:3	TimeStamp:6	State:active
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1-2-3	BlockedOperations:
+DataItem:Z	Lock_Mode:write		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 9 and instruction executed is w3 (Y); 
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:active
+T_ID:3	TimeStamp:6	State:waiting
+
+Lock table
+DataItem:Y	Lock_Mode:read		T_Id_List:-1-2-3	BlockedOperations:-w3
+DataItem:Z	Lock_Mode:write		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 10 and instruction executed is w2 (Y); 
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:waiting
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:Y	Lock_Mode:write		T_Id_List:-2	BlockedOperations:-w3-w2
+DataItem:Z	Lock_Mode:write		T_Id_List:-1	BlockedOperations:
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 11 and instruction executed is r2 (X);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:active
+T_ID:2	TimeStamp:4	State:waiting
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:Y	Lock_Mode:write		T_Id_List:-2	BlockedOperations:-w3-w2
+DataItem:Z	Lock_Mode:write		T_Id_List:-1	BlockedOperations:
+DataItem:X	Lock_Mode:read		T_Id_List:	BlockedOperations:-r2
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 12 and instruction executed is e1; 
+
+Transaction table
+T_ID:1	TimeStamp:1	State:committed
+T_ID:2	TimeStamp:4	State:waiting
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:Y	Lock_Mode:write		T_Id_List:-3	BlockedOperations:-w2
+DataItem:X	Lock_Mode:read		T_Id_List:	BlockedOperations:-r2
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 13 and instruction executed is e3; 
+
+Transaction table
+T_ID:1	TimeStamp:1	State:committed
+T_ID:2	TimeStamp:4	State:waiting
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:Y	Lock_Mode:write		T_Id_List:-3	BlockedOperations:-w2
+DataItem:X	Lock_Mode:read		T_Id_List:	BlockedOperations:-r2
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 14 and instruction executed is w2 (X);
+
+Transaction table
+T_ID:1	TimeStamp:1	State:committed
+T_ID:2	TimeStamp:4	State:waiting
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:Y	Lock_Mode:write		T_Id_List:-3	BlockedOperations:-w2
+DataItem:X	Lock_Mode:read		T_Id_List:	BlockedOperations:-r2-w2
+
+********************************************************************************************
+
+********************************************************************************************
+timestamp is 15 and instruction executed is e2;
+Transaction table
+T_ID:1	TimeStamp:1	State:committed
+T_ID:2	TimeStamp:4	State:active
+T_ID:3	TimeStamp:6	State:aborted
+
+Lock table
+DataItem:X	Lock_Mode:read		T_Id_List:	BlockedOperations:-r2-w2
+
+********************************************************************************************
